@@ -2,3 +2,6 @@ eka 1.2.3.4
 toka 1.2.3.4/24
 kolmas foobar
 neljäs 1.2.3.4/8
+viides 1.2.3.4/255.255.0.0
+kuudes 4.3.2.1m255.255.255.0
+seven 4.3.2.1m31
