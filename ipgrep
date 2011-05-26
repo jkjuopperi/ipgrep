@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# git clone http://koti.kapsi.fi/~oh8glv/ipgrep.git
 import sys, re, socket, struct
 
 cidr_re = re.compile(r"(\d+\.\d+\.\d+\.\d+(?:/\d+){0,1})")
