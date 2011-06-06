@@ -1,5 +1,9 @@
 #!/usr/bin/env python
-# git clone http://koti.kapsi.fi/~oh8glv/ipgrep.git
+#
+# Juho Juopperi <jkj@kapsi.fi>, +358405422321
+# Public Domain
+#
+
 import sys, re, socket, struct
 
 cidr_re = re.compile(r"(\d+\.\d+\.\d+\.\d+(?:[/m ](?:\d+\.\d+\.\d+\.\d+|\d+)){0,1})")
