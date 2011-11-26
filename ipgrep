@@ -11,7 +11,7 @@ cidr_re = re.compile(r"(\d+\.\d+\.\d+\.\d+(?:[/m ](?:\d+\.\d+\.\d+\.\d+|\d+)){0,
 def parse_addr(addr):
 	parts = re.split('[/m ]', addr) # IP/MASK, IPmMASK, IP MASK
 	ip = struct.unpack('>I', socket.inet_aton(parts[0]))[0]
-	prefix = False
+	prefix = None
 
 	if len(parts) > 1 and '.' in parts[1]:
 		try:
@@ -43,31 +43,32 @@ def check_ip(a, b):
 		return True
 	return False
 
+def grep(pattern, files):
+	for filename in files:
+		with open(filename) as fd:
+			for line in fd:
+				matches = False
+		
+				match = cidr_re.search(line)
+				if match:
+					for ip in match.groups():
+						try:
+							parse_addr(ip)
+							if check_ip(pattern, ip):
+								matches = True
+						except:
+							pass
+				if matches:
+					if len(sys.argv) > 3:
+						print "%s: %s" % (filename, line.rstrip("\n"))
+					else:
+						print line.rstrip("\n")
+
 def main():
 	if len(sys.argv) < 3:
 		print "%s <cidr> <file> [file...]" % sys.argv[0]
 		sys.exit(0)
-	
-	for filename in sys.argv[2:]:
-		fd = open(filename)
-		for line in fd:
-			matches = False
-	
-			match = cidr_re.search(line)
-			if match:
-				for ip in match.groups():
-					try:
-						parse_addr(ip)
-						if check_ip(sys.argv[1], ip):
-							matches = True
-					except:
-						pass
-			if matches:
-				if len(sys.argv) > 3:
-					print "%s: %s" % (filename, line.rstrip("\n"))
-				else:
-					print line.rstrip("\n")
-		fd.close()
+	grep(pattern=sys.argv[1], files=sys.argv[2:])
 
 if __name__ == '__main__':
 	main()
