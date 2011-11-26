@@ -43,27 +43,31 @@ def check_ip(a, b):
 		return True
 	return False
 
-if len(sys.argv) < 3:
-	print "%s <cidr> <file> [file...]" % sys.argv[0]
-	sys.exit(0)
+def main():
+	if len(sys.argv) < 3:
+		print "%s <cidr> <file> [file...]" % sys.argv[0]
+		sys.exit(0)
+	
+	for filename in sys.argv[2:]:
+		fd = open(filename)
+		for line in fd:
+			matches = False
+	
+			match = cidr_re.search(line)
+			if match:
+				for ip in match.groups():
+					try:
+						parse_addr(ip)
+						if check_ip(sys.argv[1], ip):
+							matches = True
+					except:
+						pass
+			if matches:
+				if len(sys.argv) > 3:
+					print "%s: %s" % (filename, line.rstrip("\n"))
+				else:
+					print line.rstrip("\n")
+		fd.close()
 
-for filename in sys.argv[2:]:
-	fd = open(filename)
-	for line in fd:
-		matches = False
-
-		match = cidr_re.search(line)
-		if match:
-			for ip in match.groups():
-				try:
-					parse_addr(ip)
-					if check_ip(sys.argv[1], ip):
-						matches = True
-				except:
-					pass
-		if matches:
-			if len(sys.argv) > 3:
-				print "%s: %s" % (filename, line.rstrip("\n"))
-			else:
-				print line.rstrip("\n")
-	fd.close()
+if __name__ == '__main__':
+	main()
