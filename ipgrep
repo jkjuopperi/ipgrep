@@ -36,9 +36,9 @@ def parse_addr(addr):
 def check_ip(a, b):
     (a_ip, a_prefix) = parse_addr(a)
     (b_ip, b_prefix) = parse_addr(b)
-    roll = min(a_prefix, b_prefix)
-    a_ip = a_ip >> (32 - roll) << (32 - roll);
-    b_ip = b_ip >> (32 - roll) << (32 - roll);
+    roll = 32 - min(a_prefix, b_prefix)
+    a_ip >>= roll
+    b_ip >>= roll
     if a_ip == b_ip:
         return True
     return False
@@ -72,3 +72,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
