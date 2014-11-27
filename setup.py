@@ -3,11 +3,10 @@ from setuptools import setup, find_packages
 import os.path
 
 # Read README for long description
-#BASE = os.path.dirname(__file__)
-#README = os.path.join(BASE, 'README.rst')
-#with open(README) as f:
-#    long_description = f.read()
-long_description="IP grepping tool"  # fixme
+BASE = os.path.dirname(__file__)
+README = os.path.join(BASE, 'README.rst')
+with open(README) as f:
+    long_description = f.read()
 
 setup(name='ipgrep',
       version='0.1.0',
