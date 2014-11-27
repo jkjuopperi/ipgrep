@@ -3,3 +3,4 @@ __pycache__
 ipgrep.egg-info
 .*.swp
 ve
+.tox
