@@ -60,13 +60,13 @@ def grep(pattern, files):
                             pass
                 if matches:
                     if len(sys.argv) > 3:
-                        print "%s: %s" % (filename, line.rstrip("\n"))
+                        print("%s: %s" % (filename, line.rstrip("\n")))
                     else:
-                        print line.rstrip("\n")
+                        print(line.rstrip("\n"))
 
 def main():
     if len(sys.argv) < 3:
-        print "%s <cidr> <file> [file...]" % sys.argv[0]
+        print("%s <cidr> <file> [file...]" % sys.argv[0])
         sys.exit(0)
     grep(pattern=sys.argv[1], files=sys.argv[2:])
 
