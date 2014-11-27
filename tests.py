@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # ipgrep tests
 #
 # To run:
@@ -9,7 +10,7 @@
 #
 # tox
 
-from ipgrep import parse_addr, check_ip, grep
+from ipgrep.ipgrep import parse_addr, check_ip, grep
 
 
 def test_check_ip_identical():
@@ -30,3 +31,7 @@ def test_check_ip_by_m_mask():
 
 def test_check_ip_by_m_mask_without_match():
     assert check_ip("127.0.0.0m8", "128.0.0.0") is False
+
+if __name__ == '__main__':
+    import pytest
+    pytest.main()
